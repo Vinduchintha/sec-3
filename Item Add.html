@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #f9f9f9;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 30px;
+    }
+
+    h2 {
+      color: #333;
+    }
+
+    #myInput {
+      padding: 8px;
+      width: 200px;
+      margin: 10px 0;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+    }
+
+    #add {
+      padding: 8px 15px;
+      background: #4CAF50;
+      color: white;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+      transition: background 0.3s;
+    }
+
+    #add:hover {
+      background: #45a049;
+    }
+
+    #list {
+      margin-top: 20px;
+      padding: 10px;
+      background: white;
+      border: 1px solid #ddd;
+      border-radius: 6px;
+      width: 300px;
+      list-style-type: decimal;
+    }
+
+    #list li {
+      padding: 5px;
+      border-bottom: 1px solid #eee;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    #list li:last-child {
+      border-bottom: none;
+    }
+
+    .complete-btn {
+      padding: 3px 8px;
+      background: #2196F3;
+      color: white;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+      font-size: 12px;
+    }
+
+    .complete-btn:hover {
+      background: #0b7dda;
+    }
+
+    .completed {
+      background: #ffeb3b; /* Yellow */
+    }
+
+    p {
+      color: #666;
+    }
+  </style>
+</head>
+<body>
+    <h2>hello</h2>
+    <button id="btn">Click Me</button>
+    
+    <input id="myInput" placeholder="Type a task">
+
+    <p>welcome to css</p>
+    <ol id="list">
+        <li>task 1 <button class="complete-btn">Complete</button></li>
+        <li>task 2 <button class="complete-btn">Complete</button></li>
+        <li>task 3 <button class="complete-btn">Complete</button></li>
+        <li>task 4 <button class="complete-btn">Complete</button></li>
+    </ol>
+    <button id="add">Add Item</button>
+
+<script>
+    $(document).ready(function(){
+        // Add new item with Complete button
+        $("#add").click(function(){
+            let task = $("#myInput").val();
+            if (task){
+                $("#list").append("<li>" + task + " <button class='complete-btn'>Complete</button></li>");
+                $("#myInput").val('');
+            }
+        });
+
+        // Delegate click event for Complete buttons
+        $(document).on("click", ".complete-btn", function(){
+            $(this).parent().toggleClass("completed");
+        });
+    });
+</script>
+</body>
+</html>
