@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  <title>To Do List</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+    }
+    li {
+      margin: 5px 0;
+      padding: 6px;
+      background: #f2f2f2;
+      border-radius: 5px;
+    }
+    .editInput {
+      width: 60%;
+      padding: 4px;
+      margin-right: 8px;
+    }
+    .done {
+      background: lightgreen;
+    }
+  </style>
+</head>
+<body>
+    <h1>To Do List</h1>
+    <h2>These are your tasks to complete</h2>
+
+    <ul id="taskList">
+      <li>
+        <span class="taskText">Sample Task 1</span>
+        <button class="doneBtn">Complete</button>
+        <button class="delete">Delete</button>
+      </li>
+      <li>
+        <span class="taskText">Sample Task 2</span>
+        <button class="doneBtn">Complete</button>
+        <button class="delete">Delete</button>
+      </li>
+    </ul>
+
+    <input type="text" id="taskInput" placeholder="Enter new task">
+    <button id="addTask">Add Task</button>
+
+<script>
+$(document).ready(function(){
+   
+  // Add Task
+  $("#addTask").click(function(){
+    let task = $("#taskInput").val().trim();
+    if(task !== ""){
+      $("#taskList").append(
+        `<li>
+          <span class="taskText">${task}</span>
+          <button class="doneBtn">Complete</button>
+          <button class="delete">Delete</button>
+        </li>`
+      );
+      $("#taskInput").val("");
+    }
+  });
+
+  // Mark as complete
+  $("#taskList").on("click", ".doneBtn", function(){
+    $(this).siblings(".taskText").toggleClass("done");
+  });
+
+  // Delete
+  $("#taskList").on("click", ".delete", function(){
+    $(this).parent().remove();
+  });
+
+  // Double-click to edit
+  $("#taskList").on("dblclick", ".taskText", function(){
+    let currentText = $(this).text();
+    let input = $(`<input type='text' class='editInput'>`).val(currentText);
+    $(this).replaceWith(input);
+    input.focus();
+
+    // Save on Enter
+    input.keydown(function(e){
+      if(e.key === "Enter"){
+        let newText = $(this).val().trim();
+        $(this).replaceWith(`<span class="taskText">${newText}</span>`);
+      }
+    });
+
+    // Save on blur
+    input.blur(function(){
+      let newText = $(this).val().trim();
+      $(this).replaceWith(`<span class="taskText">${newText}</span>`);
+    });
+  });
+
+});
+</script>
+</body>
+</html>
