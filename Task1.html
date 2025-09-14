@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Editable To-Do List</title>
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #f9f9f9;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 30px;
+    }
+    ul {
+      list-style: none;
+      padding: 0;
+    }
+    li {
+      background: #fff;
+      padding: 8px 12px;
+      margin: 5px 0;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+    input.edit {
+      width: 90%;
+      padding: 6px;
+      font-size: 14px;
+    }
+  </style>
+</head>
+<body>
+  <h2>Editable To-Do List</h2>
+  <ul id="todoList">
+    <li>Learn JavaScript</li>
+    <li>Practice jQuery</li>
+    <li>Build Projects</li>
+  </ul>
+
+  <script>
+    $(document).ready(function() {
+      // Detect double click on li
+      $("#todoList").on("dblclick", "li", function() {
+        let currentText = $(this).text();
+        let input = $("<input type='text' class='edit'>").val(currentText);
+        $(this).html(input);
+        input.focus();
+
+        // Save on Enter key
+        input.keydown(function(e) {
+          if (e.key === "Enter") {
+            let newText = $(this).val();
+            $(this).parent().text(newText);
+          }
+        });
+
+        // Save on blur (click outside)
+        input.blur(function() {
+          let newText = $(this).val();
+          $(this).parent().text(newText);
+        });
+      });
+    });
+  </script>
+</body>
+</html>
